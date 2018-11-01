@@ -11,8 +11,7 @@ public:
                 return {i, m[target - nums[i]]};
             }
             m[nums[i]]=i;
-        }
-        
+        }        
         return {};
     }
 };
