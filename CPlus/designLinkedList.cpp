@@ -43,7 +43,15 @@ public:
     
     /** Append a node of value val to the last element of the linked list. */
     void addAtTail(int val) {
-        
+        node *temp=new Node();
+        temp->val=val;
+        if (size==0){
+            tail = temp;
+            head = temp;
+        }
+        tail->next=temp;
+        tail=temp;
+        size++;
     }
     
     /** Add a node of value val before the index-th node in the linked list. If index equals to the length of linked list, the node will be appended to the end of linked list. If index is greater than the length, the node will not be inserted. */
