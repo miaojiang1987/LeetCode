@@ -1,10 +1,3 @@
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution(object):
     def lowestCommonAncestor(self, root, p, q):
         """
@@ -25,10 +18,8 @@ class Solution(object):
         if left and right:
             return root
         
-        if not left:
-            return right
-        
-        else:
+        if left:
             return left
         
-        
+        if right:
+            return right
