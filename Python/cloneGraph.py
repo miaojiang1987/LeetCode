@@ -1,10 +1,3 @@
-"""
-# Definition for a Node.
-class Node(object):
-    def __init__(self, val, neighbors):
-        self.val = val
-        self.neighbors = neighbors
-"""
 class Solution(object):
     def cloneGraph(self, node):
         """
@@ -20,13 +13,10 @@ class Solution(object):
         
         while queue:
             element=queue.pop(0)
-            
             for neighbor in element.neighbors:
                 if neighbor not in hashmap:
                     queue.append(neighbor)
-                    hashmap[neighbor]=Node(neighbor.val,[])
-                
+                    hashmap[neighbor]=Node(neighbor.val,[])                    
                 hashmap[element].neighbors.append(hashmap[neighbor])
-        
-        
+                
         return hashmap[node]
