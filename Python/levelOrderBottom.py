@@ -8,8 +8,7 @@ class Solution(object):
         if not root:
             return result
         
-        queue=[]
-        queue.append(root)
+        queue=[root]
         
         while queue:
             temp=[]
@@ -19,10 +18,10 @@ class Solution(object):
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
+                
                 temp.append(node.val)
             
             result.append(temp+[])
         
         result.reverse()
-        
         return result
