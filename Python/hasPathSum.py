@@ -1,10 +1,6 @@
 class Solution(object):
     def hasPathSum(self, root, sum):
-        """
-        :type root: TreeNode
-        :type sum: int
-        :rtype: bool
-        """
+ 
         if not root:
             return False
         
