@@ -9,10 +9,10 @@ class Solution(object):
         if not root:
             return None
         
-        if p.val<root.val and q.val<root.val:
+        if root.val>p.val and root.val>q.val:
             return self.lowestCommonAncestor(root.left,p,q)
         
-        elif p.val>root.val and q.val>root.val:
+        elif root.val<q.val and root.val<p.val:
             return self.lowestCommonAncestor(root.right,p,q)
         
         else:
