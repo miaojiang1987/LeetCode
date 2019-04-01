@@ -6,23 +6,28 @@ class Solution(object):
         :rtype: int
         """
         nums.sort()
-        result=0
         distance=pow(2,32)-1
-        for i in range(len(nums)-2):
-            j=i+1
-            k=len(nums)-1
-            while j<k:
-                _sum=nums[i]+nums[k]+nums[j]
+        result=0
+        for t in range(len(nums)-2):
+            i=t+1
+            j=len(nums)-1
+            
+            while i<j:
+                _sum=nums[t]+nums[i]+nums[j]
+                
                 if _sum==target:
                     return _sum
-                elif _sum>target:
-                    k-=1
+                elif _sum<target:
+                    i+=1
+                
                 else:
-                    j+=1
+                    j-=1
                 
                 diff=abs(_sum-target)
                 if diff<distance:
                     distance=diff
                     result=_sum
+                           
+        
         
         return result
