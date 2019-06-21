@@ -1,28 +1,11 @@
 class Solution {
 public:
-    double myPow(double x, int n){
-      if(x==0.0) return 0;
-      if(x == 1) return x;
-      if(x == -1.0) {
-            return n%2==0 ? 1 : -1;
-      }
-      if(n == INT_MIN) return 0;  
-      if(n<0) return 1/pow(x,-n);
-      else return pow(x,n); 
-        
-    }
-    
-    double pow(double x, int n){
-        if (n==0){
-            return 1;
+    double myPow(double x, int n) {
+        double result=1.0;
+        for (int i=n;i!=0;i=i/2){
+            if (i%2!=0) result*=x;
+            x*=x;
         }
-        
-        double half=pow(x,n/2);
-        if(n%2==0){
-            return half*half;
-        }
-        else{
-            return half*half*x;
-        }
+        return n < 0 ? 1 / result : result;
     }
 };
