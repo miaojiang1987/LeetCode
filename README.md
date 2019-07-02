@@ -1,8 +1,7 @@
 # LeetCode
-A repository for practicing coding.
+A repository for practicing coding skills.
 
-There are two repostitories. One is coded with C++ and another one is coded with python.
+Languages: C++,python and java.
 
 Welcome to discuss!
 
-Problem Two Sum Solved!
