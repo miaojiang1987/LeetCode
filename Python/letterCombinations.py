@@ -4,23 +4,23 @@ class Solution(object):
         :type digits: str
         :rtype: List[str]
         """
-        self.keyboard={'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv','9':'wxyz'}
+        self.keyboard={'2':'abc','3':'def','4':'ghi','5':'jkl','6':'mno','7':'pqrs','8':'tuv',
+                       '9':'wxyz'}
         
         if not digits or len(digits)==0:
             return []
         
         result=[]
-        
-        self.dfs(digits,'',result,0)
+        temp=''
+        self.dfs(digits,temp,result,0)
         return result
     
-    def dfs(self,digits,temp,result,pos):
-        
+    def dfs(self,digits,temp,results,num):
         if len(temp)==len(digits):
-            result.append(temp)
-            return 
+            results.append(temp)
+            return
         
-        for char in self.keyboard[digits[pos]]:
-            temp=temp+char
-            self.dfs(digits,temp,result,pos+1)
+        for char in self.keyboard[digits[num]]:
+            temp+=char
+            self.dfs(digits,temp,results,num+1)
             temp=temp[:-1]
