@@ -4,23 +4,33 @@ class Solution(object):
         :type root: Node
         :rtype: Node
         """
-        head = None
-        cur = root
-        stack = []
-        prev = None
-        while stack or cur:
+        if not root:
+            return None
+        
+        prev,cur=None,root
+        stack=[]
+        head=None
+        
+        while cur:
+            stack.append(cur)
+            cur=cur.left
+        
+        while stack:
+            cur=stack.pop()
+            if not prev:
+                head=cur
+            else:
+                prev.right=cur
+                cur.left=prev
+            prev=cur
+            cur=cur.right
             while cur:
                 stack.append(cur)
-                cur = cur.left
-            cur = stack.pop()
-            if prev == None:
-                head = cur
-            else:
-                prev.right = cur
-                cur.left = prev
-            prev = cur
-            cur = cur.right
+                cur=cur.left
+        
         if prev and head:
-            prev.right = head
-            head.left = prev
+            prev.right=head
+            head.left=prev
+        
         return head
+            
