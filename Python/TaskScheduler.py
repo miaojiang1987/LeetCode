@@ -1,36 +1,37 @@
-class Solution:
+class Solution(object):
     def leastInterval(self, tasks, n):
         """
         :type tasks: List[str]
         :type n: int
         :rtype: int
         """
-        dic = {}
-        for task in tasks:
-            if task in dic:
-                dic[task] += 1
+        hashmap={}
+        for c in tasks:
+            if c not in hashmap:
+                hashmap[c]=1
             else:
-                dic[task] = 1
-                
-        heap = []
-        for task, count in dic.items():
-            heapq.heappush(heap, -count)
+                hashmap[c]+=1
+        heap=[]
+        for task,count in hashmap.items():
+            heapq.heappush(heap,-count)
         
-        res = 0
+        result=0
+        
         while heap:
-            stack = []
-            time = 0
-            for _ in range(n+1):  #每个chunk有n+1个slots,每次取出count最大的任务
+            stack=[]
+            time=0
+            for _ in range(n+1):
                 if heap:
-                    count = heapq.heappop(heap)
-                    time += 1
-                    if count < -1:
+                    count=heapq.heappop(heap)
+                    time+=1
+                    if count<-1:
                         stack.append(count+1)
             for item in stack:
-                heapq.heappush(heap, item)
+                heapq.heappush(heap,item)
+            
             if heap:
-                res += n+1
+                result+=n+1
             else:
-                res += time
-
-        return res
+                result+=time
+        
+        return result
