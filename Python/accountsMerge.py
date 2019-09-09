@@ -1,27 +1,34 @@
 class Solution(object):
     def accountsMerge(self, accounts):
-        em_to_name = {}
-        graph = collections.defaultdict(set)
-        for acc in accounts:
-            name = acc[0]
-            for email in acc[1:]:
-                graph[acc[1]].add(email)
-                graph[email].add(acc[1])
-                em_to_name[email] = name
-
-        seen = set()
-        ans = []
+        """
+        :type accounts: List[List[str]]
+        :rtype: List[List[str]]
+        """
+        em_to_name={}
+        graph=collections.defaultdict(set)
+        
+        for account in accounts:
+            name=account[0]
+            for email in account[1:]:
+                graph[account[1]].add(email)
+                graph[email].add(account[1])
+                em_to_name[email]=name
+        
+        visited=set()
+        result=[]
+        
         for email in graph:
-            if email not in seen:
-                seen.add(email)
-                stack = [email]
-                component = []
+            if email not in visited:
+                visited.add(email)
+                stack=[email]
+                temp=[]
                 while stack:
-                    node = stack.pop()
-                    component.append(node)
+                    node=stack.pop()
+                    temp.append(node)
                     for nei in graph[node]:
-                        if nei not in seen:
-                            seen.add(nei)
+                        if nei not in visited:
+                            visited.add(nei)
                             stack.append(nei)
-                ans.append([em_to_name[email]] + sorted(component))
-        return ans
+                result.append([em_to_name[email]]+sorted(temp))
+        
+        return result
