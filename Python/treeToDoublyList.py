@@ -4,9 +4,6 @@ class Solution(object):
         :type root: Node
         :rtype: Node
         """
-        if not root:
-            return None
-        
         prev,cur=None,root
         stack=[]
         head=None
@@ -32,5 +29,5 @@ class Solution(object):
             prev.right=head
             head.left=prev
         
+        
         return head
-            
