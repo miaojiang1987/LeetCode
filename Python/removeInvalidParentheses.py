@@ -6,6 +6,7 @@ class Solution(object):
         """
         l=0
         r=0
+        result=[]
         for i in range(len(s)):
             if s[i]=='(':
                 l+=1
@@ -14,23 +15,24 @@ class Solution(object):
                     l-=1
                 else:
                     r+=1
-        result=[]
-        self.dfs(s,l,r,result,0)
+        
+        self.dfs(result,s,l,r,0)
         return result
     
     def isValid(self,s):
         counter=0
         for c in s:
             if counter<0:
-                return False
+                return False            
             if c=='(':
                 counter+=1
+            
             if c==')':
                 counter-=1
         
         return counter==0
     
-    def dfs(self,s,l,r,result,start):
+    def dfs(self,result,s,l,r,start):
         if l==0 and r==0 and self.isValid(s):
             result.append(s)
             return
@@ -40,7 +42,7 @@ class Solution(object):
                 continue
             
             if s[i]=='(' and l>0:
-                self.dfs(s[:i]+s[i+1:],l-1,r,result,i)
+                 self.dfs(result,s[:i]+s[i+1:],l-1,r,i)
             
             if s[i]==')' and r>0:
-                self.dfs(s[:i]+s[i+1:],l,r-1,result,i)
+                self.dfs(result,s[:i]+s[i+1:],l,r-1,i)
