@@ -1,23 +1,32 @@
-class Solution:
-    def addOperators(self, num: str, target: int) -> List[str]:
+class Solution(object):
+    def addOperators(self, num, target):
+        """
+        :type num: str
+        :type target: int
+        :rtype: List[str]
+        """
+        result=[]
+        if not num:
+            return result
         
-        if not num: return []
-        res = []
-
-        def helper(start, expr, val, prev):
-            if val == target and start == len(num):
-                res.append(expr)
+        def recurse(start,expr,val,prev_val):
+            
+           
+            if start==len(num) and target==val:
+                result.append(expr)
                 return
             
-            for i in range(start, len(num)):
-                curr = num[start: i+1]
-                if len(curr) != len(str(int(curr))): break   # prevent '00','01',... treated as one number
-                if start == 0:
-                    helper(i+1, curr, int(curr), int(curr))
+            for i in range(start,len(num)):
+                cur_val=num[start:i+1]
+                if len(cur_val) != len(str(int(cur_val))): break
+                if start==0:
+                    recurse(i+1,cur_val,int(cur_val),int(cur_val))
+                
                 else:
-                    helper(i+1, expr+'+'+curr, val+int(curr), int(curr))
-                    helper(i+1, expr+'-'+curr, val-int(curr), -int(curr))   # -curr is interpreted as +(-curr)
-                    helper(i+1, expr+'*'+curr, val-prev+prev*int(curr), prev*int(curr))   # since * has precedence over + we have to roll back +prev
-        
-        helper(0, '', 0, 0)
-        return res
+                    recurse(i+1, expr+'+'+cur_val, val+int(cur_val), int(cur_val))
+                    recurse(i+1, expr+'-'+cur_val, val-int(cur_val), -int(cur_val))   # -curr is interpreted as +(-curr)
+                    recurse(i+1, expr+'*'+cur_val, val-prev_val+prev_val*int(cur_val), prev_val*int(cur_val))
+                
+
+        recurse(0,'',0,0)
+        return result
