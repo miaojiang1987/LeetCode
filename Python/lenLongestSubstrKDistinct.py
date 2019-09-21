@@ -5,24 +5,20 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        if not s or k==0:return 0
         n=len(s)
-        if k==0 or n==0:
-            return 0
-        
-        left,right=0,0
+        maxLen=1
+        left=right=0
         hashmap=collections.defaultdict()
         
-        max_len=1
-        
-        while right<n:
+        for right in range(len(s)):
             hashmap[s[right]]=right
-            right+=1
-            
             if len(hashmap)==k+1:
-                del_index=min(hashmap.values())
-                del hashmap[s[del_index]]
-                left=del_index+1
+                start=min(hashmap.values())
+                left=start+1
+                del hashmap[s[start]]
             
-            max_len=max(max_len,right-left)
+            maxLen=max(maxLen,right-left+1)
         
-        return max_len
+        
+        return maxLen
