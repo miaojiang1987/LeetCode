@@ -1,23 +1,21 @@
-from Queue import PriorityQueue
-
 class Solution(object):
     def mergeKLists(self, lists):
         """
         :type lists: List[ListNode]
         :rtype: ListNode
         """
-        head=point=ListNode(0)
-        q=PriorityQueue()
+        pq=[]
         for l in lists:
             if l:
-                q.put((l.val,l))
+                heapq.heappush(pq,(l.val,l))
         
-        while not q.empty():
-            val,node=q.get()
-            point.next=ListNode(val)
-            point=point.next
-            node=node.next
-            if node:
-                q.put((node.val,node))
-            
-        return head.next
+        dummy=ListNode(-1)
+        cur=dummy
+        while pq:
+            smallest=heapq.heappop(pq)[1]
+            cur.next=smallest
+            cur=cur.next
+            if smallest.next:
+                heapq.heappush(pq, (smallest.next.val, smallest.next))
+                           
+        return dummy.next
