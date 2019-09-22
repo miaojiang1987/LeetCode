@@ -1,24 +1,25 @@
 class Solution(object):
     def minMeetingRooms(self, intervals):
         """
-        :type intervals: List[Interval]
+        :type intervals: List[List[int]]
         :rtype: int
         """
-        if not intervals or len(intervals)==0:
+        if not intervals:
             return 0
         
-        result=1
-        pq=[]
-        intervals.sort()
-        heapq.heappush(pq,intervals[0][1])
+        startPoint=[interval[0] for interval in intervals]
+        startPoint.sort()
+        endPoint=[interval[1] for interval in intervals]
+        endPoint.sort()
         
-        for i in range(1,len(intervals)):
-            if intervals[i][0]<pq[0]:
+     
+        result=0
+        endtime=0
+        
+        for i in range(len(intervals)):
+            if startPoint[i]<endPoint[endtime]:
                 result+=1
-                heapq.heappush(pq,intervals[i][1])
             else:
-                heapq.heappop(pq)
-                heapq.heappush(pq,intervals[i][1])
-            
+                endtime+=1
         
         return result
