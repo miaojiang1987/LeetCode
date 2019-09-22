@@ -7,16 +7,17 @@ class Solution(object):
         if not node:
             return None
         
-        queue=[node]
+        queue=collections.deque([node])
+        
         hashmap={}
         hashmap[node]=Node(node.val,[])
         
         while queue:
-            element=queue.pop(0)
+            element=queue.popleft()
             for neighbor in element.neighbors:
                 if neighbor not in hashmap:
+                    hashmap[neighbor]=Node(neighbor.val,[])
                     queue.append(neighbor)
-                    hashmap[neighbor]=Node(neighbor.val,[])                    
                 hashmap[element].neighbors.append(hashmap[neighbor])
-                
+        
         return hashmap[node]
