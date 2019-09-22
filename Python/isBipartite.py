@@ -1,16 +1,24 @@
 class Solution(object):
     def isBipartite(self, graph):
-        color = {}
-        for node in xrange(len(graph)):
-            if node not in color:
-                stack = [node]
-                color[node] = 0
-                while stack:
-                    node = stack.pop()
-                    for nei in graph[node]:
-                        if nei not in color:
-                            stack.append(nei)
-                            color[nei] = color[node] ^ 1
-                        elif color[nei] == color[node]:
+        """
+        :type graph: List[List[int]]
+        :rtype: bool
+        """
+        visited = [0]*len(graph)
+        queue=collections.deque()
+        for i in range(len(graph)):
+            if graph[i] and visited[i] == 0:
+                queue.append(i)
+                visited[i]=1
+                
+                while queue:
+                    v=queue.popleft()
+                    for node in graph[v]:
+                        if visited[node]==0:
+                            queue.append(node)
+                            visited[node]=3-visited[v]
+                        if visited[node]==visited[v]:
                             return False
+            
+        
         return True
