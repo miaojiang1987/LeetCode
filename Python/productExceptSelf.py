@@ -1,4 +1,4 @@
-   class Solution(object):
+class Solution(object):
     def productExceptSelf(self, nums):
         """
         :type nums: List[int]
@@ -6,16 +6,17 @@
         """
         n=len(nums)
         
-        res=[1]*n
+        result=[1]*n
         
-        #[1,2,3,4] -> res=[24,12,4,1]
+        #[1,2,3,4]
+        #[24,12,4,1]
         for i in range(n-2,-1,-1):
-            res[i]=res[i+1]*nums[i+1]
+            result[i]=result[i+1]*nums[i+1]
         
-        leftproduct=1
-        #res=[24,12,4*2,6*1]
-        for i in range(n):
-            res[i]*=leftproduct
-            leftproduct*=nums[i]
+        left_product=1
         
-        return res
+        for i in range(len(nums)):
+            result[i]=left_product*result[i]
+            left_product*=nums[i]
+        
+        return result
