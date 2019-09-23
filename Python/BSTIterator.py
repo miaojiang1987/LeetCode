@@ -9,22 +9,24 @@ class BSTIterator(object):
             self.stack.append(root)
             root=root.left
 
-    def hasNext(self):
+    def next(self):
         """
         @return the next smallest number
         :rtype: int
         """
-        return len(self.stack)!=0
+        if self.stack:
+            node=self.stack.pop()
+            
+            cur=node.right
+            while cur:
+                self.stack.append(cur)
+                cur=cur.left
         
+            return node.val
 
-    def next(self):
+    def hasNext(self):
         """
         @return whether we have a next smallest number
         :rtype: bool
         """
-        node=self.stack.pop()
-        cur=node.right
-        while cur:
-            self.stack.append(cur)
-            cur=cur.left
-        return node.val
+        return self.stack!=[]
