@@ -13,10 +13,10 @@ class Solution(object):
             presum+=nums[i]
             if presum-k in hashmap:
                 result+=hashmap[presum-k]
-            if presum not in hashmap:
-                hashmap[presum]=1
-            else:
+            if presum in hashmap:
                 hashmap[presum]+=1
+            else:
+                hashmap[presum]=1
         
         
         return result
