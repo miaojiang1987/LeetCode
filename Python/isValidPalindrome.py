@@ -14,7 +14,7 @@ class Solution(object):
                 left+=1
             while right>=0 and not s[right].isalnum():
                 right-=1
-            if left >= right:
+            if left >= right:   
                 return True
             left_char=s[left].lower()
             right_char=s[right].lower()
