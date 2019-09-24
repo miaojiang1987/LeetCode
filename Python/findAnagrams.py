@@ -5,27 +5,29 @@ class Solution(object):
         :type p: str
         :rtype: List[int]
         """
-        p_map={}
-        for letter in p:
-            p_map[letter]=p_map.get(letter,0)+1
         result=[]
-        start=0
-        count=0
-        for i in range(len(s)):
-            if s[i] in p:
-                p_map[s[i]]-=1
-                if p_map[s[i]]>=0:
-                    count+=1
-            
-            while count==len(p):
-                if i-start+1==len(p):
-                    result.append(start)
-                if s[start] in p_map:
-                    p_map[s[start]] += 1
-                    if p_map[s[start]] > 0:
-                        count -= 1
-            
-                start+=1
+        hashmap={}
+        for c in p:
+            if c in hashmap: 
+                hashmap[c]+=1
+            else:
+                hashmap[c]=1
+        match_count=0
+        left=0
         
+        for i in range(len(s)):
+            if s[i] in hashmap:
+                hashmap[s[i]]-=1
+                if hashmap[s[i]]>=0:
+                    match_count+=1
+            
+            while match_count==len(p):
+                if i-left+1==len(p):
+                    result.append(left)
+                if s[left] in hashmap:
+                    hashmap[s[left]]+=1
+                    if hashmap[s[left]]>0:
+                        match_count-=1
+                left+=1
         
         return result
