@@ -28,7 +28,7 @@ class Solution:
             res = self.reverse(slow, fast)
             prev.next = res[0]
             slow.next = cur
-            prev = res   [1]
+            prev = res[1]
             
         return dummy.next
         
