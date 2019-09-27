@@ -4,24 +4,27 @@ class Solution(object):
         :type nums: List[int]
         :rtype: None Do not return anything, modify nums in-place instead.
         """
-        if not nums or len(nums)<=1:
-            return nums
         
-        partition=-1
-        for i in range(len(nums)-2,-1,-1):
-            if nums[i]<nums[i+1]:
-                partition=i
-                break
+               
+        # 1 2 7 4 3 1
+        #   i     j
+        # 1 3 7 4 2 1
+        # 1 3 1 2 4 7 
         
-        if partition==-1:
-            nums.reverse()
-        else:
-            for i in range(len(nums)-1, partition, -1):
-                if nums[i] > nums[partition]:
-                    nums[i],nums[partition] = nums[partition],nums[i]
-                    break
-            left = partition+1; right = len(nums)-1
-            while left < right:
-                nums[left],nums[right] = nums[right],nums[left]
-                left+=1; right-=1
+        i=len(nums)-1
         
+        while i>=1 and nums[i-1]>=nums[i]:
+            i-=1
+        i-=1
+        
+        if i>=0:
+            j = len(nums)-1
+            while nums[j] <= nums[i]:
+                j -= 1
+            nums[i], nums[j] = nums[j], nums[i]
+        
+        l, r = i+1, len(nums)-1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
