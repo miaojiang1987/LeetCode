@@ -22,4 +22,4 @@ class Solution(object):
                 stack.pop()
                 prev_time = int(time) + 1
         
-        return result
+        return result   
