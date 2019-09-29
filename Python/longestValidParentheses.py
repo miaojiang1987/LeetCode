@@ -16,7 +16,7 @@ class Solution(object):
                 stack.pop()
                 if not stack:
                     stack.append(i)
-                
+                    
                 else:
                     maxLen=max(maxLen,i-stack[-1])
                     
