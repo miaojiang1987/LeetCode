@@ -1,25 +1,29 @@
-class Solution:
+class Solution(object):
     def isMonotonic(self, A):
         """
         :type A: List[int]
         :rtype: bool
         """
-        if not A and len(A)==0 or len(A)==1:
-            return True
+        #status={0:increasing,1:decreasing}
         
-        up=False
-        down=False
+        if len(A)==1: return True
         
-        if A[0]<=A[1]: 
-            up=True
+        i=0
         
-        if A[0]>=A[1]: 
-            down=True
-            
-        for i in range(1,len(A)-1):
-            if A[i]>A[i+1]:
-                up=False
+        while i<len(A)-2:
             if A[i]<A[i+1]:
-                down=False
+                start_trend=0
+                break
+            elif A[i]>A[i+1]:
+                start_trend=1
+                break
+            i+=1
+        if i==len(A)-2: return True
+        for k in range(i,len(A)-1):
+            if A[k]>A[k+1] and start_trend==0:
+                return False
         
-        return (up or down)
+            if A[k]<A[k+1] and start_trend==1:
+                return False
+        
+        return True
