@@ -11,21 +11,20 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[str]
         """
-        path=[]
         result=[]
         if not root:
             return result
-        else:
-            path=(str)(root.val)
-            self.dfs(root,result,path)
+        
+        self.dfs(root,result,'')
+        
         return result
     
-    def dfs(self,root,result,path):
+    def dfs(self,root,result,temp):
+        temp+=str(root.val)
         if not root.left and not root.right:
-            result.append(path)
+            result.append(temp)
             return
-        
         if root.left:
-            self.dfs(root.left,result,path+'->'+(str)(root.left.val))
+            self.dfs(root.left,result,temp+"->")
         if root.right:
-            self.dfs(root.right,result,path+'->'+(str)(root.right.val))
+            self.dfs(root.right,result,temp+"->")
