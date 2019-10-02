@@ -1,81 +1,53 @@
-class DLinkedNode(): 
+class DoubleLinkedNode:
     def __init__(self):
-        self.key = 0
-        self.value = 0
+        self.key = None
+        self.value = None
         self.prev = None
         self.next = None
-
 
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.cache = {}
-        self.size = 0
-        self.capacity = capacity
-        self.head, self.tail = DLinkedNode(), DLinkedNode()
-
+        self.head = DoubleLinkedNode()
+        self.tail = DoubleLinkedNode()
         self.head.next = self.tail
-        self.tail.prev = self.head        
+        self.tail.prev = self.head
+        self.map = {}
+        self.capacity = capacity
         
-    def _remove_node(self, node):
-        """
-        Remove an existing node from the linked list.
-        """
-        prev = node.prev
-        next = node.next
-
-        prev.next = next
-        next.prev = prev        
-
-    def _add_node_to_head(self, node):
-        """
-        Always add the new node right after head.
-        """
-        node.prev = self.head
+    def remove(self, node):    # head -> n2 -> n3 ->
+        node.prev.next = node.next
+        node.next.prev = node.prev
+        
+    def add2head(self, node):
         node.next = self.head.next
-
+        node.prev = self.head
         self.head.next.prev = node
         self.head.next = node
-        
-        
-        
+    
     def get(self, key: int) -> int:
-        
-        node = self.cache.get(key, None)
-        if not node:
+        if key in self.map:
+            node = self.map[key]
+            self.remove(node)
+            self.add2head(node)
+            return node.value
+        else:
             return -1
 
-        # move the accessed node to the head;
-        self._remove_node(node)
-        self._add_node_to_head(node)
-
-        return node.value
-
-        
-
     def put(self, key: int, value: int) -> None:
+        if key not in self.map:
+            new_node = DoubleLinkedNode()
+            new_node.key = key
+            new_node.value = value
+            if len(self.map) >= self.capacity:
+                last = self.tail.prev
+                self.remove(last)
+                del self.map[last.key]
+            self.map[key] = new_node
+            self.add2head(new_node)
         
-        node = self.cache.get(key)
-
-        if node:
-            # update the value.
+        if key in self.map:
+            node = self.map[key]
             node.value = value
-            self._remove_node(node)
-            self._add_node_to_head(node)            
-            
-        if not node: 
-            newNode = DLinkedNode()
-            newNode.key = key
-            newNode.value = value
-
-            self.cache[key] = newNode
-            self._add_node_to_head(newNode)
-
-            self.size += 1
-
-            if self.size > self.capacity:
-                # pop the tail
-                tail = self.tail.prev 
-                self._remove_node(tail)
-                del self.cache[tail.key]
-                self.size -= 1
+            self.remove(node)
+            self.add2head(node)
