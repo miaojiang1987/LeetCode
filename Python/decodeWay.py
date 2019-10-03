@@ -6,12 +6,13 @@ class Solution(object):
         """
         if not s or s[0]=='0':
             return 0
+        
         n=len(s)
         dp=[0]*(n+1)
         dp[0]=dp[1]=1
         
+        
         for i in range(2,n+1):
-            
             if '1'<=s[i-1]<='9':
                 dp[i]=dp[i-1]
             
