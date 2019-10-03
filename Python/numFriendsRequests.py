@@ -1,20 +1,24 @@
-class Solution:
-    def numFriendRequests(self, ages: List[int]) -> int:
+class Solution(object):
+    def numFriendRequests(self, ages):
+        """
+        :type ages: List[int]
+        :rtype: int
+        """
+        result=0
+        numAge=[0]*121
+        sumAge=[0]*121
         
-        res, numInAge, sumInAge = 0, [0] *121, [0]*121 #长度121因为0到120
-        # get a count for each age in array 
-        for i in ages:
-            numInAge[i] +=1 
-        #print(numInAge)
-        # calculate count of age + previous age sum 
+        for age in ages:
+            numAge[age]+=1
+        
+        sumAge[0]=numAge[0]
         for i in range(1,121):
-            sumInAge[i] = numInAge[i] + sumInAge[i-1]
-        #print(sumInAge)
-        #print(numInAge)
-        for i in range(15, 121):
-            if numInAge[i] == 0:
-                continue
-            count = sumInAge[i] - sumInAge[int(i/2) + 7]
-            #print(count)
-            res += count *numInAge[i] - numInAge[i] # remove self as count in friend
-        return res
+            sumAge[i] = numAge[i] + sumAge[i-1]
+        
+        for i in range(15,121):
+            count=sumAge[i]-sumAge[i//2+7]
+            
+            result+=count*numAge[i]-numAge[i]
+        
+        
+        return result
