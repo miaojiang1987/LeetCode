@@ -5,20 +5,14 @@ class Solution(object):
         :type wordDict: List[str]
         :rtype: bool
         """
-        wordDictSet=set()
-        queue=[]
-        visited=set()
-        queue.append(0)
+        if not s or not wordDict:
+            return False
+        dp=[False]*(len(s)+1)
+        dp[0]=True
         
-        while queue:
-            start=queue.pop()
-            if start not in visited:
-                for i in range(start+1,len(s)+1):
-                    if s[start:i] in wordDict:
-                        queue.append(i)
-                        if (i==len(s)):
-                            return True
-                
-                visited.add(start)
+        for i in range(1,len(s)+1):
+            for j in range(i):
+                if dp[j] and s[j:i] in wordDict:
+                    dp[i]=True
         
-        return False
+        return dp[len(s)]
