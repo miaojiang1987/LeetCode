@@ -13,7 +13,6 @@ class Solution(object):
                 hashmap[num]=1
             else:
                 hashmap[num]+=1
-        
         heap=[]
         for num,count in hashmap.items():
             heapq.heappush(heap,(count,num))
