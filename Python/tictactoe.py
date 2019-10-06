@@ -5,15 +5,14 @@ class TicTacToe(object):
         Initialize your data structure here.
         :type n: int
         """
+        if n==0:
+            return 
         self.n = n
-        # orders are hor, vert, diag, adiag
-        self.rows = [[0]*n, [0]*n]
-        self.cols = [[0]*n, [0]*n]
-        self.diags = [0,0]
-        self.adiags = [0,0]
+        self.row_count = [[0 for i in range(n)] for p in range(2)]
+        self.col_count = [[0 for i in range(n)] for p in range(2)]
+        self.diag_count = [0 for p in range(2)]
+        self.rev_diag_count = [0 for p in range(2)]
 
-
-        
     def move(self, row, col, player):
         """
         Player {player} makes a move at ({row}, {col}).
@@ -29,14 +28,16 @@ class TicTacToe(object):
         :type player: int
         :rtype: int
         """
-        self.rows[player-1][col]+=1
-        if self.rows[player-1][col]==self.n: return player
-        self.cols[player-1][row]+=1
-        if self.cols[player-1][row]==self.n: return player
+        self.row_count[player-1][row]+=1
+        self.col_count[player-1][col]+=1
         if row==col:
-            self.diags[player-1]+=1
-            if self.diags[player-1]==self.n: return player
-        if row+col==self.n-1:
-            self.adiags[player-1] += 1
-            if self.adiags[player-1]==self.n: return player
-        return 0         
+            self.diag_count[player-1]+=1
+        if (row + col) == self.n - 1:
+             self.rev_diag_count[player -1] += 1
+        if (self.row_count[player-1][row] == self.n or \
+        self.col_count[player-1][col] == self.n or \
+        self.diag_count[player-1] == self.n or \
+        self.rev_diag_count[player-1] == self.n):
+            return player
+        return 0
+        
