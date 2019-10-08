@@ -4,37 +4,37 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: int
         """
-        if not matrix or len(matrix[0]) == 0:
-            return 0        
+        if not matrix or not matrix[0]:
+            return 0
+        result=0
+        row=len(matrix)
+        col=len(matrix[0])
+        dp=[[0 for i in range(col)] for j in range(row)]
         
-        m = len(matrix)
-        n = len(matrix[0])
-        res = 1
+        for i in range(row):
+            for j in range(col):
+                max_path=self.dfs(matrix,i,j,dp)
+                result=max(result,max_path)
         
-        dp = [[0 for j in range(n)] for i in range(m)]
-        for i in range(m):
-            for j in range(n):
-                res = max(res, self.dfs(dp, matrix, i, j))
         
-        return res
+        return result
     
     
-    def dfs(self, dp, matrix, i, j):
-        
-        #dp在这里的作用是，如果之前已经算过了，只需查表，无需重复计算了
-        if dp[i][j] != 0:
+    def dfs(self,matrix,i,j,dp):
+        if dp[i][j]!=0:
             return dp[i][j]
+        max_path=1
         
-        maxLen = 1
         m = len(matrix)
         n = len(matrix[0])
+        directions=[(1,0),(0,1),(-1,0),(0,-1)]
         
-        for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-            x = i+dx
-            y = j+dy
-            if x >= 0 and x < m and y >= 0 and y < n and matrix[i][j] < matrix[x][y]:
-                length = self.dfs(dp, matrix, x, y) + 1
-                maxLen = max(maxLen, length)
+        for dx,dy in directions:
+            X=i+dx
+            Y=j+dy
+            
+            if X>=0 and X<m and Y>=0 and Y<n and matrix[i][j]<matrix[X][Y]:
+                num_path=self.dfs(matrix,X,Y,dp)+1
+                max_path=max(max_path,num_path)
         
-        dp[i][j] = maxLen
-        return maxLen
+        dp[i][j] = max_path
