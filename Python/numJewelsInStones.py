@@ -7,16 +7,16 @@ class Solution(object):
         """
         if not J or not S:
             return 0
-        result=0
-        hashmap={}
-        for character in S:
-            if character not in hashmap:
-                hashmap[character]=1
-            else:
-                hashmap[character]+=1
         
-        for jewel in J:
-            if jewel in S:
-                result+=hashmap[jewel]
+        jewelset=set()
+        
+        for j in J:
+            jewelset.add(j)
+        
+        result=0
+        for s in S:
+            if s in jewelset:
+                result+=1
+        
         
         return result
