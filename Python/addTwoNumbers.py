@@ -14,8 +14,7 @@ class Solution(object):
         
         flag=0
         dummy=ListNode(0)
-        current=dummy
-        
+        current=dummy 
         while l1 and l2:
             add=(l1.val+l2.val+flag)%10
             flag=(l1.val+l2.val+flag)//10
