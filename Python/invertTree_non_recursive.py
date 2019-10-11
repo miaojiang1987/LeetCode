@@ -14,20 +14,18 @@ class Solution(object):
         if not root:
             return None
         
-        currentLevel=collections.deque()
-        nextLevel=collections.deque()
+        current_level=collections.deque()
+        next_level=collections.deque()
         
-        currentLevel.append(root)
-        
-        while currentLevel:
-            node=currentLevel.popleft()
+        current_level.append(root)
+        while current_level:
+            node=current_level.popleft()
             if node:
-                node.left,node.right = node.right,node.left
-                nextLevel.append(node.left)
-                nextLevel.append(node.right)
-            
-            if not currentLevel:
-                currentLevel,nextLevel=nextLevel,currentLevel
+                node.left,node.right=node.right,node.left
+                next_level.append(node.left)
+                next_level.append(node.right)
+            if not current_level:
+                current_level=next_level
         
         
         return root
