@@ -1,0 +1,50 @@
+class Vector2D(object):
+
+    def __init__(self, v):
+        """
+        :type v: List[List[int]]
+        """
+        self.list=v
+        self.list_index=0
+        self.element_index=0
+        
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        while self.element_index >= len(self.list[self.list_index]):
+            self.list_index += 1 
+        ret = self.list[self.list_index][self.element_index]
+        if self.element_index>=len(self.list[self.list_index])-1:
+            self.list_index+=1
+            self.element_index=0
+        else:
+            self.element_index+=1
+        
+        return ret
+        
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        if self.list_index>=len(self.list):
+            return False
+        m=self.list_index
+        n=self.element_index
+        while m<len(self.list):
+            if self.list[m] and n<=len(self.list[m])-1:
+                return True
+            else:
+                m+=1
+                n=0
+        
+        return False
+        
+        
+
+
+# Your Vector2D object will be instantiated and called as such:
+# obj = Vector2D(v)
+# param_1 = obj.next()
+# param_2 = obj.hasNext()

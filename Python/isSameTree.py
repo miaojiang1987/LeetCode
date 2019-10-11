@@ -12,13 +12,24 @@ class Solution(object):
         :type q: TreeNode
         :rtype: bool
         """
-        if not p and not q:
+        if not q and not p:
             return True
-        
-        if not p or not q:
+        if not q or not p:
             return False
+        queue=[]
+        queue.append((p,q))
         
-        if p.val!=q.val:
-            return False
+        while queue:
+            node1,node2=queue.pop(0)
+            if (node1 and not node2) or (not node1 and node2):
+                return False
+            
+            if node1 and node2:
+                if node1.val!=node2.val:
+                    return False
+            if node1:
+                queue.append((node1.left,node2.left))
+                queue.append((node1.right,node2.right))
         
-        return self.isSameTree(p.left,q.left) and self.isSameTree(p.right,q.right)
+        
+        return True
