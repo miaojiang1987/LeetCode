@@ -1,4 +1,9 @@
-from collections import deque
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
 class Codec:
 
@@ -8,23 +13,22 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        if not root:
-            return ""
         result=[]
-        queue=deque()
+        if not root:
+            return result
+        queue=collections.deque()
         queue.append(root)
         while queue:
             node=queue.popleft()
-            if not node:
-                result.append("null")
-                continue
-            else:
+            if node:
                 result.append(node.val)
-            queue.append(node.left)
-            queue.append(node.right)
+            else:
+                result.append('null')
+            if node:
+                queue.append(node.left)
+                queue.append(node.right)
         
         return result
-        
         
 
     def deserialize(self, data):
@@ -35,10 +39,10 @@ class Codec:
         """
         if not data or data[0]=='null':
             return None
-        queue=deque()
+        queue=collections.deque()
         root=TreeNode(int(data[0]))
-        i=1
         queue.append(root)
+        i=1
         while queue and i<len(data):
             node=queue.popleft()
             if data[i]!='null':
@@ -49,6 +53,5 @@ class Codec:
                 node.right=TreeNode(int(data[i]))
                 queue.append(node.right)
             i+=1
-        
         
         return root
