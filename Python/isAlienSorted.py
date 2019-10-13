@@ -1,27 +1,26 @@
-class Solution(object):
-    def isAlienSorted(self, words, order):
-        """
-        :type words: List[str]
-        :type order: str
-        :rtype: bool
-        """
-        hashmap={c:i for i,c in enumerate(order)}
-        #print(hashmap)
-        for i in range(0,len(words)-1):
-            word1=words[i]
-            word2=words[i+1]
+class Solution:
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+        
+        dic = {}
+        cnt = 0
+        for c in order:
+            dic[c] = cnt
+            cnt += 1
+
+        for i in range(1, len(words)):
+            w1 = words[i-1]
+            w2 = words[i]
             
-            size=min(len(word1),len(word2))
-            
-            for j in range(size):
-                if word1[j]!=word2[j]:
-                    if hashmap[word1[j]]>hashmap[word2[j]]:
+            length = min(len(w1), len(w2))
+            for j in range(length):
+                if w1[j] != w2[j]:
+                    if dic[w1[j]] > dic[w2[j]]:
                         return False
-                    break
-        
-            else:
-                if len(word1)>len(word2):
-                    return False
-        
-        
+                    elif dic[w1[j]] < dic[w2[j]]:
+                        break
+                        
+            if len(w1) > len(w2) and w1[:len(w2)] == w2:
+                return False
+            
         return True
+            
