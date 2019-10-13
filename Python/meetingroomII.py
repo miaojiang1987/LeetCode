@@ -7,19 +7,17 @@ class Solution(object):
         if not intervals:
             return 0
         
-        startPoint=[interval[0] for interval in intervals]
-        startPoint.sort()
-        endPoint=[interval[1] for interval in intervals]
-        endPoint.sort()
+        result=1
+        intervals.sort()
         
-     
-        result=0
-        endtime=0
+        pq=[]
+        heapq.heappush(pq,intervals[0][1])
         
-        for i in range(len(intervals)):
-            if startPoint[i]<endPoint[endtime]:
+        for i in range(1,len(intervals)):
+            if intervals[i][0]<pq[0]:
                 result+=1
             else:
-                endtime+=1
+                heapq.heappop(pq)
+            heapq.heappush(pq,intervals[i][1])
         
         return result
