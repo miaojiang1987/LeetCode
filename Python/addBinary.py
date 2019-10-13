@@ -5,28 +5,20 @@ class Solution(object):
         :type b: str
         :rtype: str
         """
-        m = len(a)
-        n = len(b)
-        if m < n:
-            a = "0"*(n-m) + a
-        elif m > n:
-            b = "0"*(m-n) + b
-            
-        res = ""
-        length = max(m, n)
-        i = length - 1
-        j = length - 1
-   
-        carry = 0
-        while i >= 0 and j >= 0:
-            val = carry + int(a[i]) + int(b[i])
-            i -= 1
-            j -= 1
-            digit = val % 2
-            carry = val // 2
-            res = str(digit) + res
-            
-        if carry == 1:
-            res = "1" + res
-            
-        return res
+        if len(a)<len(b):
+            a,b=b,a
+        
+        b='0'*(len(a)-len(b))+b
+        result=''
+        flag=0
+        for i in range(len(a)-1,-1,-1):
+            _sum=int(a[i])+int(b[i])+flag
+            flag=_sum//2
+            _sum=_sum%2
+            result=(str)(_sum)+result
+        
+        if flag==1:
+            result='1'+result
+        
+        
+        return result
