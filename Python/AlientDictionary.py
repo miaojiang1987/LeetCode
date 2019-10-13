@@ -4,47 +4,45 @@ class Solution(object):
         :type words: List[str]
         :rtype: str
         """
-        graph,indegree=self.buildgraph(words)
-        result=""
-        queue=collections.deque()
-        for char in indegree:
-            if indegree[char]==0:
-                queue.append(char)
+        if not words:
+            return None
         
-        while queue:
-            cur=queue.popleft()
-            result+=cur
-            for char in graph[cur]:
-                indegree[char]-=1
-                if indegree[char]==0:
-                    queue.append(char)
-        
-        if len(result)!=len(indegree): 
-            return ""
-        return result
-    
-    def buildgraph(self,words):
         graph={}
         indegree={}
         
         for word in words:
             for c in word:
-                if c not in graph:
-                    graph[c]=set()
+                graph[c]=[]
                 indegree[c]=0
         
-        for i in range(len(words)-1):
-            word1=words[i]
-            word2=words[i+1]
-            if word1!=word2:
-                length=min(len(word1),len(word2))
-                for j in range(length):
-                    c1=word1[j]
-                    c2=word2[j]
-                    if c1!=c2:
-                        if c2 not in graph[c1]:
-                            graph[c1].add(c2)
-                            indegree[c2]+=1
-                        break
+        for i in range(1,len(words)):
+            word1=words[i-1]
+            word2=words[i]
+            
+            for j in range(min(len(word1),len(word2))):
+                if word1[j]!=word2[j]:
+                    if word2[j] not in graph[word1[j]]:
+                        indegree[word2[j]]+=1
+                        graph[word1[j]].append(word2[j])
+                    break
+       
+        result=""
+        queue=collections.deque()
+        for key in indegree:
+            if indegree[key]==0:
+                queue.append(key)
         
-        return graph,indegree
+        while queue:
+            node=queue.popleft()
+            
+            result+=node
+            for nei in graph[node]:
+                indegree[nei]-=1
+                if indegree[nei]==0:
+                    queue.append(nei)
+            
+        
+        if len(result)!=len(indegree):
+            return ""
+        
+        return result
