@@ -6,34 +6,37 @@ class Solution(object):
         :rtype: int
         """
         hashmap={}
-        
-        for c in tasks:
-            if c not in hashmap:
-                hashmap[c]=1
+        for task in tasks:
+            if task not in hashmap:
+                hashmap[task]=1
             else:
-                hashmap[c]+=1
+                hashmap[task]+=1
         
         pq=[]
-        for item,count in hashmap.items():
+        for task in hashmap:
+            count=hashmap[task]
             heapq.heappush(pq,-count)
         result=0
         
         while pq:
             stack=[]
-            time=0
+            item=0
             for _ in range(n+1):
+                
                 if pq:
                     count=heapq.heappop(pq)
-                    time+=1
+                    item+=1
                     if count<-1:
                         stack.append(count+1)
+                        
             
-            for item in stack:
-                heapq.heappush(pq,item)
+            for element in stack:
+                heapq.heappush(pq,element)
+            
             
             if pq:
                 result+=n+1
             else:
-                result+=time
+                result+=item
         
         return result
