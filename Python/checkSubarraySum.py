@@ -5,20 +5,15 @@ class Solution(object):
         :type k: int
         :rtype: bool
         """
-        cumSum=0
-        hashmap={0:-1}
+        if not nums:
+            return False
         
-        #pre_sum[i]-pre_sum[j]=k*n
-        # pre_sum[i]%k==pre_sum[j]%k
-        # 2,3,4
-        #pre_sum[0]=2
-        #pre_sum[2]=9
-        #pre_sum[2]-pre_sum[0]=7*n
-        #pre_sum[2]%7=2 pre_sum[0]%7=2
+        hashmap={0:-1}
+        pre_sum=0
         
         for i in range(len(nums)):
-            cumSum+=nums[i]
-            mod=cumSum%k if k!=0 else cumSum
+            pre_sum+=nums[i]
+            mod=pre_sum%k if k!=0 else pre_sum
             if mod in hashmap:
                 j=hashmap[mod]
                 if i-j>=2:
