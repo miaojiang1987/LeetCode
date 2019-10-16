@@ -5,18 +5,22 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
+        if not nums:
+            return 0
         result=0
-        presum=0
+        pre_sum=0
         hashmap={0:1}
-        
         for i in range(len(nums)):
-            presum+=nums[i]
-            if presum-k in hashmap:
-                result+=hashmap[presum-k]
-            if presum in hashmap:
-                hashmap[presum]+=1
+            pre_sum+=nums[i]
+            if pre_sum-k in hashmap:
+                result+=hashmap[pre_sum-k]
+            
+            if pre_sum not in hashmap:
+                hashmap[pre_sum]=1
             else:
-                hashmap[presum]=1
+                hashmap[pre_sum]+=1
+        
+        
         
         
         return result
