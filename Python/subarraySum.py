@@ -8,6 +8,7 @@ class Solution(object):
         result=0
         presum=0
         hashmap={0:1}
+		
         
         for i in range(len(nums)):
             presum+=nums[i]
