@@ -1,3 +1,10 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
 class Solution(object):
     def isValidBST(self, root):
         """
@@ -7,16 +14,16 @@ class Solution(object):
         if not root:
             return True
         
-        prev=None
         stack=[]
-        
         while root:
             stack.append(root)
             root=root.left
         
+        prev=None
+        
         while stack:
             cur=stack.pop()
-            if prev and prev.val >= cur.val:
+            if prev and cur.val<=prev.val:
                 return False
             prev=cur
             cur=cur.right
