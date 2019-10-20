@@ -4,7 +4,8 @@ class Solution(object):
         :type root: Node
         :rtype: Node
         """
-        prev,cur=None,root
+        
+		prev,cur=None,root
         stack=[]
         head=None
         
