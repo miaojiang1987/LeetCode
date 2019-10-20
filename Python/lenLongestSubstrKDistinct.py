@@ -11,6 +11,7 @@ class Solution(object):
         left=right=0
         hashmap=collections.defaultdict()
         
+		
         for right in range(len(s)):
             hashmap[s[right]]=right
             if len(hashmap)==k+1:
