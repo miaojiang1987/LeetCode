@@ -11,6 +11,8 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
+        if not root:
+            return 0
         self.max=float('-inf')
         self.dfs(root)
         return self.max
@@ -18,9 +20,8 @@ class Solution(object):
     def dfs(self,root):
         if not root:
             return 0
-        left_result=max(self.dfs(root.left),0)
-        right_result=max(self.dfs(root.right),0)
+        left_val=max(self.dfs(root.left),0)
+        right_val=max(self.dfs(root.right),0)
         
-        self.max=max(self.max,root.val+left_result+right_result)
-        
-        return max(root.val+left_result,root.val+right_result)
+        self.max=max(self.max,root.val+left_val+right_val)
+        return max(root.val+left_val,root.val+right_val)
