@@ -6,11 +6,10 @@ class Solution(object):
         :rtype: bool
         """
         if not nums:
-            return False
+            return None
         
         hashmap={0:-1}
         pre_sum=0
-        
         for i in range(len(nums)):
             pre_sum+=nums[i]
             mod=pre_sum%k if k!=0 else pre_sum
@@ -20,5 +19,7 @@ class Solution(object):
                     return True
             else:
                 hashmap[mod]=i
+        
+        
         
         return False
