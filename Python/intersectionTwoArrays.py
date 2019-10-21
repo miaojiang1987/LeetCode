@@ -5,19 +5,19 @@ class Solution(object):
         :type nums2: List[int]
         :rtype: List[int]
         """
-        result=[]
         if not nums1 or not nums2:
-            return result
+            return None
+        
         hashset=set()
+        result=[]
         
-        for i in range(len(nums1)):
-            if nums1[i] not in hashset:
-                hashset.add(nums1[i])
+        for num in nums1:
+            if num not in hashset:
+                hashset.add(num)
         
-        for i in range(len(nums2)):
-            if nums2[i] in hashset:
-                result.append(nums2[i])
-                hashset.remove(nums2[i])
-        
+        for num in nums2:
+            if num in hashset:
+                result.append(num)
+                hashset.remove(num)
         
         return result
