@@ -8,18 +8,17 @@ class Solution(object):
         st=[]
         
         for d in dirs:
-            if len(d)==0 or d=='.': 
+            if d=='.' or len(d)==0:
                 continue
-            if d=='..':
-                if len(st)>0:
-                    st.pop()
             
+            if  d=='..':
+                if st:
+                    st.pop()
             else:
                 st.append(d)
-        
-        
+            
         if len(st)==0:
-            return '/'
+            return "/"
         
-        else:
-            return '/'+'/'.join(st)
+        
+        return '/'+'/'.join(st)
