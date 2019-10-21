@@ -21,7 +21,7 @@ class Solution(object):
             if email not in visited:
                 stack=[email]
                 visited.add(email)
-                temp=[]        
+                temp=[]
                 while stack:
                     node=stack.pop()
                     temp.append(node)
@@ -29,8 +29,8 @@ class Solution(object):
                         if neigh not in visited:
                             stack.append(neigh)
                             visited.add(neigh)
-            
-                result.append([em_to_name[email]]+sorted(temp))
         
+                result.append([em_to_name[email]]+sorted(temp))
+            
         
         return result

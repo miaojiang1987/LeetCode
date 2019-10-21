@@ -1,4 +1,9 @@
-from collections import deque
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
 class Solution(object):
     def rightSideView(self, root):
@@ -8,16 +13,21 @@ class Solution(object):
         """
         if not root:
             return []
-        
-        queue=deque([root])
         result=[]
+        
+        queue=collections.deque()
+        queue.append(root)
+        
         while queue:
-            for _ in range(len(queue)):
+            node=None
+            for i in range(len(queue)):
                 node=queue.popleft()
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
+            
             result.append(node.val)
+        
         
         return result

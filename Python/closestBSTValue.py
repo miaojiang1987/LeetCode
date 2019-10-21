@@ -14,16 +14,18 @@ class Solution(object):
         """
         if not root:
             return None
-        dist=10000000000
-        closest_value=0
+        min_dist=float('inf')
+        min_val=0
         while root:
-            if abs(target-root.val)<dist:
-                dist=abs(target-root.val)
-                closest_value=root.val
-            if target<root.val:
-                root=root.left
-            else:
+            dist=abs(root.val-target)
+            if dist<min_dist:
+                min_val=root.val
+                min_dist=dist
+            
+            if target>root.val:
                 root=root.right
+            else:
+                root=root.left
         
         
-        return closest_value
+        return min_val

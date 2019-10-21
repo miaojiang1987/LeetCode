@@ -7,12 +7,14 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
+		
         hashmap={}
         for num in nums:
             if num not in hashmap:
                 hashmap[num]=1
             else:
                 hashmap[num]+=1
+        
         heap=[]
         for num,count in hashmap.items():
             heapq.heappush(heap,(count,num))
@@ -22,3 +24,4 @@ class Solution(object):
         result=[item[1] for item in heap]
         
         return result
+     

@@ -1,10 +1,16 @@
+class TrieNode:
+    def __init__(self):
+        self.children={}
+        self.end=False
+
 class WordDictionary(object):
 
     def __init__(self):
         """
         Initialize your data structure here.
         """
-        self.trie = {}        
+        self.root=TrieNode()
+        
 
     def addWord(self, word):
         """
@@ -12,13 +18,12 @@ class WordDictionary(object):
         :type word: str
         :rtype: None
         """
-        t = self.trie
-        for w in word:
-            if w not in t:
-                t[w] = {}
-            t = t[w]
-        t['END'] = ''
-        
+        cur=self.root
+        for char in word:
+            if char not in cur.children:
+                cur.children[char]=TrieNode()
+            cur=cur.children[char]
+        cur.end=True
 
     def search(self, word):
         """
@@ -26,15 +31,20 @@ class WordDictionary(object):
         :type word: str
         :rtype: bool
         """
-        def dfs(t, word):
-            for idx in range(len(word)):
-                w = word[idx]
-                if w not in t and w != '.':
-                    return False
-                if w == '.':
-                    return any([dfs(t[c], word[idx+1:]) for c in t])
-                else:
-                    t = t[w]
-            return 'END' in t
-
-        return dfs(self.trie, word)
+        return self.dfs(word,self.root,0)
+    
+    def dfs(self,word,cur,start):
+        if start==len(word):
+            return cur.end
+        c=word[start]
+        if c!='.':
+            if c not in cur.children:
+                return False
+            else:
+                return self.dfs(word,cur.children[c],start+1)
+        else:
+            for child in cur.children:
+                if self.dfs(word,cur.children[child],start+1):
+                    return True
+        
+        return False
