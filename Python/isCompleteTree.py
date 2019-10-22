@@ -13,7 +13,6 @@ class Solution(object):
         """
         nodes=[(root,1)]
         i=0
-        
         while i<len(nodes):
             node,v=nodes[i]
             i+=1
