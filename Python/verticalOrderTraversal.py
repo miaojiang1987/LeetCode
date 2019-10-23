@@ -1,14 +1,27 @@
-from collections import defaultdict
 class Solution(object):
-    def verticalTraversal(self, root):
-        self.res = collections.defaultdict(list)
+    def verticalOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if not root:
+            return None
+        result=[]
+        height=collections.defaultdict(list)
         
-        def dfs(root, layer, col):
-            if root:
-                self.res[col].append((col, layer, root.val))
-                dfs(root.left, layer + 1, col - 1)
-                dfs(root.right, layer + 1, col + 1)
+        queue=collections.deque()
+        queue.append((root,0))
         
-        dfs(root, 0, 0)
-        values = [sorted(self.res[key]) for key in sorted(self.res)]
-        return [[val for _, _, val in col_val] for col_val in values]
+        while queue:
+            node,level=queue.popleft()        
+            if level in height:
+                height[level].append(node.val)
+            else:
+                height[level]=[node.val]
+            if node.left:
+                queue.append((node.left,level-1))
+            if node.right:
+                queue.append((node.right,level+1))
+        
+        
+        return [height[i] for i in sorted(height)]
