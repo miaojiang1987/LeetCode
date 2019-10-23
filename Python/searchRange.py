@@ -5,32 +5,38 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        left_res = self.searchLeft(nums, target)
-        right_res = self.searchRight(nums, target)
-
-        if left_res <= right_res:
-            return (left_res, right_res)
+        left_result=self.searchLeft(nums,target)
+        right_result=self.searchRight(nums,target)
+        
+        if left_result<=right_result:
+            return [left_result,right_result]
         else:
-            return [-1, -1]
+            return [-1,-1]
     
+    def searchLeft(self,nums,target):
+        left=0
+        right=len(nums)-1
+        
+        
+        while left<=right:
+            mid=left+(right-left)//2
+            if nums[mid]<target:
+                left=mid+1
+            else:
+                right=mid-1
+            
+        return left
     
-    def searchLeft(self, nums, target):
-        low, high = 0, len(nums) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if target > nums[mid]: 
-                low = mid + 1
-            else: 
-                high = mid - 1
-        return low
-
-    def searchRight(self, nums, target):
-        low, high = 0, len(nums) - 1
-        while low <= high:
-            mid = (low + high) // 2
-            if target >= nums[mid]: 
-                low = mid + 1
-            else: 
-                high = mid - 1
-        return high
-    
+    def searchRight(self,nums,target):
+        left=0
+        right=len(nums)-1
+        
+        
+        while left<=right:
+            mid=left+(right-left)//2
+            if nums[mid]<=target:
+                left=mid+1
+            else:
+                right=mid-1
+            
+        return right
