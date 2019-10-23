@@ -4,9 +4,9 @@ class Solution(object):
         :type intervals: List[List[int]]
         :rtype: List[List[int]]
         """
-        result=[]
         if not intervals:
-            return result
+            return None
+        result=[]
         intervals.sort(key=lambda x:x[0])
         for interval in intervals:
             if not result or result[-1][1]<interval[0]:
