@@ -1,19 +1,27 @@
-class Solution:
-    # @return a boolean
+class Solution(object):
     def isPalindrome(self, x):
-        if x < 0:
+        """
+        :type x: int
+        :rtype: bool
+        """
+        if x<0:
             return False
-        div = 1
-        while x/div >= 10:
-            div = div * 10
-            
-        while x > 0:
-            l = x // div
-            r = x % 10
-
-            if l != r:
-                return False
-            x %= div
-            x //= 10
-            div /= 100
-        return True
+        
+        digit=0
+        n=x
+        
+        while n>0:
+            n=n//10
+            digit+=1
+        
+        
+        result=0
+        for i in range(digit//2):
+            result=result*10+x%10
+            x=x//10
+        
+        if digit%2!=0:
+            x=x//10
+        
+        
+        return result==x
