@@ -1,52 +1,52 @@
-class Solution:
-    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> List[List[str]]:
+class Solution(object):
+    def findLadders(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: List[List[str]]
+        """
+        result=[]
+        queue=collections.deque()
         
         if not wordList:
-            return []
+            return None
+        
         if endWord not in wordList:
-            return []
-        
-
+            return None
+        hashmap={}
         wordList = set(wordList)
-        res = []
-        dis = {}  #record the distance between start to node's parent
-        dq = collections.deque()
-        dq.append((beginWord, [beginWord])) # word, path
-        
-        level = 1
-        while dq:
-            level_size = len(dq)
-            found = False
-            for _ in range(level_size):
-                curWord, path = dq.popleft()
-                w_list = []
-                # Get all match nodes in this level
-                for i in range(len(curWord)):
-                    for c in 'abcdefghijklmnopqrstuvwxyz':
-                        if curWord[i] == c:
-                            continue
-                        nextWord = curWord[:i]+c+curWord[i+1:]
-                        if nextWord in wordList:
-                            w_list.append(nextWord)  
-                # Go over and check potential nodes 
-                for w in w_list:
-                    # ***special case has to be handled 
-                    # tex  >  tax 
-                    # tad  >  tax
-                    # tax in the same level could be used twice or more.
-                    
-                    # if the word appeared in "previous" levels, skip it
-                    
-                    if w in dis and dis[w] < level: 
+        queue.append((beginWord,[beginWord]))
+        found=False
+        level=1
+        while queue:
+            for _ in range(len(queue)):
+                word,lst=queue.popleft()
+                wlist=[]
+                
+                for i in range(len(word)):
+                    for c in "abcdefghijklmnopqrstuvwxyz":
+                        if word[i]!=c:
+                            nextWord=word[:i]+c+word[i+1:]
+                            if nextWord in wordList:
+                                wlist.append(nextWord)
+                
+                for w in wlist:
+                    if w in hashmap and hashmap[w] < level: 
                         continue
 
                     if w == endWord:
                         found = True
-                        res.append(path+[w])   
+                        result.append(lst+[w])   
                     else:
-                        dis[w] = level
-                        dq.append((w, path+[w]))
-            
-            level += 1       
-            if found:
+                        hashmap[w] = level
+                        queue.append((w, lst+[w]))
+
+            level+=1
+            if found==True:
                 break
+            
+        
+        
+        
+        return result
