@@ -6,6 +6,7 @@ class RandomizedSet(object):
         """
         self.hashmap={}
         self.list=[]
+        
 
     def insert(self, val):
         """
@@ -14,12 +15,10 @@ class RandomizedSet(object):
         :rtype: bool
         """
         if val not in self.hashmap:
-            self.hashmap[val]=len(self.list)
             self.list.append(val)
+            self.hashmap[val]=len(self.list)-1
             return True
-        
         return False
-        
 
     def remove(self, val):
         """
@@ -29,6 +28,7 @@ class RandomizedSet(object):
         """
         if val not in self.hashmap:
             return False
+        
         index=self.hashmap[val]
         node=self.list.pop()
         
@@ -38,7 +38,6 @@ class RandomizedSet(object):
         del self.hashmap[val]
         return True
         
-
     def getRandom(self):
         """
         Get a random element from the set.
