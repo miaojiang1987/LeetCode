@@ -14,13 +14,13 @@ class Solution(object):
         
         number_of_buildings=0
         
-        for i in range(R):
-            for j in range(C):
-                if grid[i][j]!=1:
+        for r in range(R):
+            for c in range(C):
+                if grid[r][c]!=1:
                     continue
                 number_of_buildings+=1
-                visited=set((i,j))
-                queue=[((i,j),0)]
+                visited=set((r,c))
+                queue=[((r,c),0)]
                 
                 while queue:
                     cur,level=queue.pop(0)
