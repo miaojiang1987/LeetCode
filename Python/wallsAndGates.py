@@ -4,29 +4,31 @@ class Solution(object):
         :type rooms: List[List[int]]
         :rtype: None Do not return anything, modify rooms in-place instead.
         """
-        if not rooms:
-            return 0
+        if not rooms or not rooms[0]:
+            return None
         
-        m=len(rooms)
-        n=len(rooms[0])
+        row=len(rooms)
+        col=len(rooms[0])
         
         queue=collections.deque()
-        direction=[(1,0),(0,1),(-1,0),(0,-1)]
-        
-        for i in range(m):
-            for j in range(n):
+        for i in range(row):
+            for j in range(col):
                 if rooms[i][j]==0:
-                    queue.append((i,j,0))
+                    queue.append(((i,j),0))
+        
+        directions=[(1,0),(0,1),(-1,0),(0,-1)]
         
         while queue:
-            x,y,val=queue.popleft()
-            for dx,dy in direction:
-                newX=x+dx
-                newY=y+dy
+            position,value=queue.popleft()
+            x,y=position[0],position[1]
+            
+            for dx,dy in directions:
+                X=x+dx
+                Y=y+dy
                 
-                if 0<=newX<m and 0<=newY<n and rooms[newX][newY] == 2**31-1:
-                    rooms[newX][newY]=val+1
-                    queue.append((newX,newY,val+1))
+                if 0<=X<row and 0<=Y<col and rooms[X][Y] == 2**31-1:
+                    rooms[X][Y]=value+1
+                    queue.append(((X,Y),value+1))
             
         
         return
