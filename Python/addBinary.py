@@ -5,19 +5,26 @@ class Solution(object):
         :type b: str
         :rtype: str
         """
-        if len(a)<len(b):
-            a,b=b,a
+        m=len(a)
+        n=len(b)
         
-        b='0'*(len(a)-len(b))+b
+        if m>n:
+            b='0'*(m-n)+b
+        if n>m:
+            a='0'*(n-m)+a
+
         result=''
-        flag=0
-        for i in range(len(a)-1,-1,-1):
-            _sum=int(a[i])+int(b[i])+flag
-            flag=_sum//2
-            _sum=_sum%2
-            result=(str)(_sum)+result
+        carry=0
+        for i in range(max(m,n)-1,-1,-1):
+            print(a)
+            val=carry+int(a[i])+int(b[i])
+            carry=val//2
+            val=val%2
         
-        if flag==1:
+            
+            result=str(val)+result
+            
+        if carry:
             result='1'+result
         
         
