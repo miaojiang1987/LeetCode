@@ -5,24 +5,22 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-        
         result=[]
-        if not candidates or len(candidates)==0: return result
-        
+        if not candidates:
+            return []
         temp=[]
-        self.dfs(candidates,target,temp,result,0)
+        self.dfs(candidates,target,0,result,temp)
         return result
     
-    
-    def dfs(self,candidates,target,temp,result,start):
+    def dfs(self,candidates,target,start,result,temp):
         if target==0:
             result.append(temp+[])
-            return
-        
+            
         if target<0:
             return
         
         for i in range(start,len(candidates)):
-            temp.append(candidates[i])
-            self.dfs(candidates,target-candidates[i],temp,result,i)
+            number=candidates[i]
+            temp.append(number)
+            self.dfs(candidates,target-number,i,result,temp)
             temp.pop()
