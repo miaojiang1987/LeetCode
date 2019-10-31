@@ -17,7 +17,6 @@ class Solution(object):
             
             else:
                 l=p+1
-        
         return points[:K]
     
     def partition(self,points,l,r):
