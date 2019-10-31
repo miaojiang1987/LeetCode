@@ -7,36 +7,35 @@ class Solution(object):
         """
         hashmap={}
         for task in tasks:
-            if task not in hashmap:
-                hashmap[task]=1
-            else:
+            if task in hashmap:
                 hashmap[task]+=1
-        
-        pq=[]
-        for task in hashmap:
-            count=hashmap[task]
-            heapq.heappush(pq,-count)
+            else:
+                hashmap[task]=1
+            
         result=0
+        pq=[]
+        for key in hashmap:
+            count=hashmap[key]
+            heapq.heappush(pq,-count)
         
-        while pq:
+        for i in range(len(tasks)):
             stack=[]
             item=0
             for _ in range(n+1):
-                
                 if pq:
                     count=heapq.heappop(pq)
                     item+=1
                     if count<-1:
                         stack.append(count+1)
-                        
             
-            for element in stack:
-                heapq.heappush(pq,element)
-            
+            for item in stack:
+                heapq.heappush(pq,item)
             
             if pq:
                 result+=n+1
             else:
                 result+=item
+        
+        
         
         return result
