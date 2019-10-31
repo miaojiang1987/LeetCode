@@ -4,22 +4,28 @@ class Solution(object):
         :type graph: List[List[int]]
         :rtype: bool
         """
+        if not graph:
+            return False
         visited=[0]*len(graph)
-        queue = collections.deque()
-        for i in range(len(graph)):
-            if graph[i] and visited[i]==0:
-                queue.append(i)
-                visited[i]=1
-            
-                while queue:
-                    node=queue.popleft()
-                    for nei in graph[node]:
-                        if visited[nei]==0:
-                            visited[nei]=3-visited[node]
-                            queue.append(nei)
-                        
-                        if visited[nei]==visited[node]:
-                            return False
         
+        for i in range(len(graph)):
+            if visited[i] or len(graph[i])==0:
+                continue
+            
+            queue=collections.deque()
+            queue.append(i)
+            
+            while queue:
+                node=queue.popleft()
+                
+                for nei in graph[node]:
+                    if visited[nei]==0:
+                        queue.append(nei)
+                        visited[nei]=3-visited[node]
+                    
+                    if visited[nei]==visited[node]:
+                        return False
+            
+            
         
         return True
