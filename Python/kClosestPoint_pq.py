@@ -6,21 +6,15 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         heap=[]
-        for point in points:
-            dist=self.distance(point)
-            heapq.heappush(heap,(-dist,point))
-            
-            if len(heap) > K:
+        for p in points:
+            dist=p[0]**2+p[1]**2
+            heapq.heappush(heap,(-dist,p))
+            if len(heap)>K:
                 heapq.heappop(heap)
+        
         result=[]
-    
-        while heap:
+        for i in range(len(heap)):
             result.append(heapq.heappop(heap)[1])
         
-
         
         return result[::-1]
-        
-    
-    def distance(self,p):
-        return p[0]**2+p[1]**2
