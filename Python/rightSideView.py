@@ -14,7 +14,6 @@ class Solution(object):
         if not root:
             return []
         result=[]
-        
         queue=collections.deque()
         queue.append(root)
         
@@ -31,3 +30,4 @@ class Solution(object):
         
         
         return result
+                
