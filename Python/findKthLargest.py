@@ -7,7 +7,6 @@ class Solution(object):
         """
         if not nums or len(nums)<k:
             return -1
-        
         l=0
         r=len(nums)-1
         while l<=r:
@@ -18,10 +17,9 @@ class Solution(object):
                 r=p-1
             else:
                 l=p+1
-        
-
-        
-        
+                
+         
+    
     def partition(self,nums,l,r):
         p=l
         pivot=nums[p]
@@ -34,7 +32,8 @@ class Solution(object):
             
             if l<r:
                 nums[l],nums[r]=nums[r],nums[l]
+                l+=1
+                r-=1
         
         nums[r],nums[p]=nums[p],nums[r]
-        
         return r
