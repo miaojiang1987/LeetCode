@@ -6,25 +6,25 @@ class Solution(object):
         """
         if not s:
             return True
+        l=0
+        r=len(s)-1
         
-        left=0
-        right=len(s)-1
         
-        while left<=right:
-            while left<len(s) and not s[left].isalnum():
-                left+=1
-            while right>0 and not s[right].isalnum():
-                right-=1
-            if left>right:
+        while l<=r:
+            while l<=r and not s[l].isalnum():
+                l+=1
+            while l<=r and not s[r].isalnum():
+                r-=1
+            if l>r:
                 return True
             
-            l=s[left].lower()
-            r=s[right].lower()
-            if l!=r:
+            left=s[l].lower()
+            right=s[r].lower()
+            if left!=right:
                 return False
+                
+            l+=1
+            r-=1
             
-            left+=1
-            right-=1
-        
         
         return True
