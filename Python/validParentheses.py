@@ -1,22 +1,21 @@
 class Solution(object):
     def isValid(self, s):
         """
-        :type s: str   
+        :type s: str
         :rtype: bool
         """
-        stack = []
-       
-        mapping={')':'(',']':'[','}':'{'}
+        if not s:
+            return True
         
-        for char in s:
-            if char in mapping:
-                top_element=stack.pop() if stack else '#'
-                if mapping[char]!=top_element:
+        stack=[]
+        hashmap={')':'(','}':'{',']':'['}
+        for i in range(len(s)):
+            if s[i] in hashmap:
+                top=stack.pop() if stack else '#'
+                if hashmap[s[i]]!=top:
                     return False
-            
-            
             else:
-                stack.append(char)
+                stack.append(s[i])
         
         
         return not stack
