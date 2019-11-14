@@ -11,19 +11,20 @@ class Solution(object):
         :type node: Node
         :rtype: Node
         """
+        if not node:
+            return None
         hashmap={}
         queue=collections.deque()
         queue.append(node)
         hashmap[node]=Node(node.val,[])
         
         while queue:
-            element=queue.popleft()
-            for nei in element.neighbors:
+            temp=queue.popleft()
+            for nei in temp.neighbors:
                 if nei not in hashmap:
                     hashmap[nei]=Node(nei.val,[])
                     queue.append(nei)
-                hashmap[element].neighbors.append(hashmap[nei])
+                hashmap[temp].neighbors.append(hashmap[nei])
         
         
         return hashmap[node]
-            
