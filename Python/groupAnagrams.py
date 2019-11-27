@@ -11,10 +11,12 @@ class Solution(object):
         hashmap={}
         
         for string in strs:
-            key="".join(sorted(string))
+            key=''.join(sorted(string))
             if key in hashmap:
                 hashmap[key].append(string)
+            
             else:
                 hashmap[key]=[string]
+            
         
         return hashmap.values()
