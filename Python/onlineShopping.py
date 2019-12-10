@@ -28,3 +28,25 @@ output:
  时间复杂度：O(n)
  空间复杂度：O(n)
 '''
+
+def online_shopping(ids, id_ips, ip_texts):
+	websites = {ip: [None, None] for ip, text in ip_texts}
+    for id, ip in id_ips:
+        if websites[ip][0] is None:
+            websites[ip][0] = 1
+        else:
+            websites[ip][0] += 1
+    
+    for ip, text in ip_texts:
+        if websites[ip][1] is None:
+            websites[ip][1] = 1
+        else:
+            websites[ip][1] += 1
+
+    return websites
+	
+	
+		
+	
+	
+	
