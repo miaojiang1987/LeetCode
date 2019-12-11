@@ -16,7 +16,7 @@ def meeting_room_overlap(meetings, new_meeting):
     for i in range(len(meetings)):   
         if i == 0 and new_meeting[1] <= meetings[i][1]:
             available = True
-        if new_meeting[0] >= meetings[i-1][1] and new_meeting[1] <= meetings[i][0]:
+        if new_meeting[0] >= meetings[i-1][1] or new_meeting[1] <= meetings[i][0]:
             available = True
         if i == len(meetings) - 1 and new_meeting[0] >= meetings[i][1]:
             available = True           
