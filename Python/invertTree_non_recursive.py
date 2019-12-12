@@ -1,10 +1,3 @@
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution(object):
     def invertTree(self, root):
         """
@@ -14,18 +7,18 @@ class Solution(object):
         if not root:
             return None
         
-        current_level=collections.deque()
-        next_level=collections.deque()
+        queue=[]
+        queue.append(root)
         
-        current_level.append(root)
-        while current_level:
-            node=current_level.popleft()
-            if node:
+        while queue:
+            for i in range(len(queue)):
+                node=queue.pop()
                 node.left,node.right=node.right,node.left
-                next_level.append(node.left)
-                next_level.append(node.right)
-            if not current_level:
-                current_level=next_level
+                if node.left:
+                    queue.append(node.left)
+                
+                if node.right:
+                    queue.append(node.right)
         
         
         return root
