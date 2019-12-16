@@ -4,19 +4,20 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        if len(s) <= 1:
-            return len(s)
+        if not s or len(s)==0:
+            return 0
         
+        start=0
+        
+        longest=0
         hashmap={}
-        start = 0
-        maxLength=0
-        for i in range(len(s)):
-            if s[i] not in hashmap:
-                hashmap[s[i]] = i
-            else:
-                pre_index = hashmap[s[i]]
-                start = max(pre_index + 1, start)
-                hashmap[s[i]] = i
-            maxLength = max(maxLength, i-start+1)
         
-        return maxLength
+        for i in range(len(s)):
+            
+            if s[i] in hashmap:
+                start=max(start,hashmap[s[i]]+1)
+            longest=max(i-start+1,longest)
+            hashmap[s[i]]=i
+        
+        
+        return longest
