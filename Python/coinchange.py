@@ -5,18 +5,17 @@ class Solution(object):
         :type amount: int
         :rtype: int
         """
-        if not coins: return -1
-         
         dp=[-1 for i in range(amount+1)]
+        
         dp[0]=0
         
-        for i in range(1,amount+1):
+        for j in range(1,len(dp)):
             for coin in coins:
-                if i-coin>=0 and dp[i-coin]!=-1:
-                    if dp[i]==-1:
-                        dp[i]=dp[i-coin]+1
+                if j-coin>=0 and dp[j-coin]!=-1:
+                    if dp[j]==-1:
+                        dp[j]=dp[j-coin]+1
                     else:
-                        dp[i]=min(dp[i-coin]+1,dp[i])
+                        dp[j]=min(dp[j-coin]+1,dp[j])
         
         
         return dp[amount]
