@@ -1,6 +1,6 @@
 package SerializeAndDeserializeBST;
 
-import util.TreeNode;
+import javaUtil.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;

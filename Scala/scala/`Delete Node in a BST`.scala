@@ -1,4 +1,4 @@
-import util.TreeNode
+import util._
 
 object `Delete Node in a BST` {
     object Solution {
