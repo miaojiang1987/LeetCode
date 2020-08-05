@@ -1,7 +1,7 @@
 # LeetCode
 A repository for practicing coding skills.
 
-Languages: C++, Python, Java and Scala.
+Languages: C++, Python and Java.
 
 Welcome to discuss!
 
